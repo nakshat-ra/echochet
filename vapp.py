@@ -45,4 +45,3 @@ def text_to_speech(text):
     synthesizer = SpeechSynthesizer(speech_config=speech_config)
     synthesizer.speak_text_async(text)
     
-    
