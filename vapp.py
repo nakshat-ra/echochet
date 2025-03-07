@@ -99,7 +99,7 @@
 
 
 
-from fastapi import FastAPI, WebSocket, Response, Form, Body
+from fastapi import FastAPI, WebSocket, Response, Form, Body, Request
 import os
 import openai
 import deepgram
@@ -127,7 +127,7 @@ async def root():
 @app.post("/incoming-call")
 async def handle_call():
     response = VoiceResponse()
-    response.say("Connecting you to the AI assistant. Please speak after the beep.")
+    response.say("Welcome to Propeller Global Ventures! Please speak after the beep.")
     response.pause(length=1)
     response.record(timeout=10, transcribe=True)
     return Response(content=str(response), media_type="application/xml")
@@ -144,6 +144,13 @@ async def make_call(to_phone_number: str = Body(...)):
         url="https://echochet-azaqfbfhfvcgf5g2.eastus2-01.azurewebsites.net/incoming-call"
     )
     return {"message": "Call initiated!", "call_sid": call.sid}
+
+#Debug Request Handling in FastAPI
+#Test if FastAPI is receiving the request correctly
+async def make_call(request: Request):
+    body = await request.json()
+    print("Received Request Body:", body)  # Log it
+    return {"status": "received"}
 
 # ✅ Handle WebSockets for Deepgram STT
 @app.websocket("/stt-stream")
