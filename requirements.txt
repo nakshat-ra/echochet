@@ -5,5 +5,9 @@ twilio==8.7.0
 deepgram-sdk==2.12.0
 openai==1.12.0
 azure-storage-blob==12.19.1
+
+
 python-multipart
 python-dotenv
+
+azure-cognitiveservices-speech==1.37.0
